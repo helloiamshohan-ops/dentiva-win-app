@@ -37,6 +37,7 @@ export const ID_PREFIXES = [
   'pat', // patient
   'pmt', // payment
   'prx', // prescription
+  'qeu', // queue entry
   'rcp', // receipt
   'ref', // referral
   'rfd', // refund

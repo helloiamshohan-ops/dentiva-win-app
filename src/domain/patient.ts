@@ -100,7 +100,8 @@ export interface DuplicateCandidateInput {
 }
 
 export interface DuplicateSignal {
-  field: 'phone' | 'name' | 'dob' | 'email';
+  /** 'search' is not a match signal; it reports that the candidate list was capped. */
+  field: 'phone' | 'name' | 'dob' | 'email' | 'search';
   weight: number;
   description: string;
 }

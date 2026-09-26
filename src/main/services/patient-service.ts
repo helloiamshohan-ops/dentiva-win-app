@@ -287,15 +287,8 @@ export class PatientService {
   }
 
   /** Validate and normalise every patient field. Rejects rather than silently coercing. */
-  private validate(
-    input: PatientInput,
-    isCreate: boolean,
-  ): Omit<PatientInput, 'name' | 'sex' | 'tags' | 'customFields'> & {
-    name: string;
-    sex: Sex;
-    tags: string[];
-    customFields: CustomField[];
-  } {
+  private validate(input: PatientInput, isCreate: boolean): NormalizedPatient {
+    void isCreate;
     const fieldErrors: Record<string, string> = {};
     const name = (() => {
       try {
@@ -348,9 +341,6 @@ export class PatientService {
     }
 
     const preferredName = textOrNull(input.preferredName, 'preferredName', TEXT_LIMITS.preferredName, fieldErrors);
-    if (!isCreate && preferredName === null && (input.preferredName ?? null) === null) {
-      // no-op: clearing an optional field is allowed
-    }
 
     return {
       name,
@@ -398,6 +388,31 @@ export class PatientService {
       archived: patient.archivedAt !== null,
     };
   }
+}
+
+/** Fully validated patient fields. Optional strings are resolved to `string | null`. */
+export interface NormalizedPatient {
+  name: string;
+  sex: Sex;
+  preferredName: string | null;
+  dobKey: string | null;
+  phone: string | null;
+  alternatePhone: string | null;
+  email: string | null;
+  address: string | null;
+  occupation: string | null;
+  emergencyContactName: string | null;
+  emergencyContactPhone: string | null;
+  referralSource: string | null;
+  tags: string[];
+  customFields: CustomField[];
+  notes: string | null;
+  medicalHistory: string | null;
+  dentalHistory: string | null;
+  allergies: string | null;
+  currentMedications: string | null;
+  chronicConditions: string | null;
+  riskInformation: string | null;
 }
 
 function textOrNull(

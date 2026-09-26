@@ -199,7 +199,16 @@ export function computeInvoiceTotals(input: InvoiceTotalsInput): InvoiceComputat
  * Invariant I1. Throws when a persisted or computed invoice no longer satisfies
  * `subtotal − discount + tax = total`. Used by integrity diagnostics and by every write path.
  */
-export function assertInvoiceInvariant(t: InvoiceTotals, label = 'Invoice'): void {
+/** The subset of totals the invariant depends on. */
+export interface InvoiceInvariantInput {
+  subtotalMinor: number;
+  discountMinor: number;
+  taxableMinor: number;
+  taxMinor: number;
+  totalMinor: number;
+}
+
+export function assertInvoiceInvariant(t: InvoiceInvariantInput, label = 'Invoice'): void {
   const expected = add(sub(t.subtotalMinor, t.discountMinor), t.taxMinor);
   if (expected !== t.totalMinor) {
     throw Errors.integrity(
