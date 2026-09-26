@@ -329,6 +329,17 @@ export function validateRefund(input: {
   }
 }
 
+/** Guard that a computed adjustment delta stayed a safe integer (guards against overflow). */
+export function adjustDeltaGuard(delta: number): number {
+  if (!Number.isSafeInteger(delta)) {
+    throw new AppError('The adjustment amount is outside the supported range.', {
+      code: 'VALIDATION',
+      fieldErrors: { amountMinor: 'Enter a smaller amount.' },
+    });
+  }
+  return delta;
+}
+
 /** Signed delta for an adjustment: a waiver reduces the balance, a charge increases it. */
 export function adjustmentDelta(kind: AdjustmentKind, amountMinor: number): number {
   const amount = assertMinorAmount(amountMinor, 'adjustment amount');

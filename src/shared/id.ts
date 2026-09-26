@@ -22,12 +22,15 @@ export const ID_PREFIXES = [
   'adj', // financial adjustment
   'apt', // appointment
   'att', // attachment
+  'aud', // audit log entry
+  'bku', // backup record
   'chr', // chair
   'cli', // clinic
   'dnt', // dentist
   'exp', // expense
   'fol', // follow-up
   'inv', // invoice
+  'ivi', // invoice line item
   'itm', // inventory item
   'mov', // inventory movement
   'ntf', // notification
