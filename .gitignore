@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-main/
+dist-preload/
+out/
+release/
+build-output/
+
+# Test / coverage
+coverage/
+*.lcov
+
+# Local runtime data (never commit clinic data)
+.dentiva/
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Backups produced during development/testing
+backups/
+*.dentivabak
+
+# Generated verification evidence that is regenerated on demand
+docs/evidence/generated/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+
+# Secrets — must never be committed
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+secrets.*
+
+# Python helper venv used for font tooling
+.fontenv/

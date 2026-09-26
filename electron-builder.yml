@@ -1,0 +1,64 @@
+# Dentiva Pro — Windows x64 packaging configuration
+#
+# NOTE: producing the actual artifacts requires the Electron distribution binaries and
+# electron-builder's NSIS/winCodeSign tooling, which are downloaded from GitHub release
+# assets. In the verification sandbox those hosts are unreachable, so packaging cannot be
+# executed there. This configuration is the authoritative, committed release definition and
+# is validated statically (see scripts/static-audit.mjs and scripts/packaging-audit.mjs).
+
+appId: com.dentiva.pro
+productName: Dentiva Pro
+copyright: Copyright © Dentiva Pro
+
+# The packaged application contains only production code. No test fixtures, no development
+# server, no source maps, no test databases, no debug scripts.
+files:
+  - dist/main/**/*
+  - dist/preload/**/*
+  - dist/renderer/**/*
+  - resources/fonts/**/*
+  - resources/icons/icon.png
+  - package.json
+  - "!**/*.map"
+  - "!**/*.ts"
+  - "!**/tsconfig*.json"
+
+directories:
+  output: release
+  buildResources: resources
+
+asar: true
+
+# `node:sqlite` is built into Electron's Node runtime, therefore there are no native
+# modules to rebuild and no asar unpacking requirement.
+npmRebuild: false
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: portable
+      arch: [x64]
+    - target: zip
+      arch: [x64]
+  icon: resources/icons/icon.ico
+  artifactName: "${productName}-${version}-${arch}.${ext}"
+  # Unsigned: no production code-signing certificate is available. This is declared, not hidden.
+  signAndEditExecutable: false
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Dentiva Pro
+  installerIcon: resources/icons/icon.ico
+  uninstallerIcon: resources/icons/icon.ico
+  installerHeaderIcon: resources/icons/icon.ico
+  deleteAppDataOnUninstall: false
+
+portable:
+  artifactName: "${productName}-${version}-portable-${arch}.${ext}"
+
+generateUpdatesFilesForAllChannels: false

@@ -1,0 +1,54 @@
+{
+  "name": "dentiva-pro",
+  "productName": "Dentiva Pro",
+  "version": "1.0.0",
+  "description": "Dentiva Pro — offline-first premium dental clinic and practice management software for Windows x64.",
+  "author": "Dentiva Pro",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "dist/main/index.js",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "build:main": "node scripts/build-main.mjs",
+    "build:renderer": "vite build",
+    "build": "npm run build:main && npm run build:renderer",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "static-audit": "node scripts/static-audit.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "clinic-day": "node scripts/clinic-day-simulation.mjs",
+    "scale": "node scripts/scale-test.mjs",
+    "long-history": "node scripts/long-history-test.mjs",
+    "docs-verify": "node scripts/document-verification.mjs",
+    "perf": "node scripts/performance-test.mjs",
+    "integrity": "node scripts/integrity-check.mjs",
+    "verify": "node scripts/verify.mjs",
+    "start": "electron .",
+    "dist:win": "npm run build && electron-builder --win --x64",
+    "checksums": "node scripts/checksums.mjs"
+  },
+  "dependencies": {
+    "pdfkit": "^0.20.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/pdfkit": "^0.17.1",
+    "@types/react": "^18.3.17",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.24.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}
