@@ -25,17 +25,21 @@ export const ID_PREFIXES = [
   'aud', // audit log entry
   'bku', // backup record
   'chr', // chair
+  'cht', // dental chart entry
   'cli', // clinic
   'dnt', // dentist
   'exp', // expense
   'fol', // follow-up
+  'imp', // import batch
   'inv', // invoice
   'ivi', // invoice line item
   'itm', // inventory item
   'mov', // inventory movement
+  'nte', // patient note
   'ntf', // notification
   'pat', // patient
   'pmt', // payment
+  'prm', // prescription medicine
   'prx', // prescription
   'qeu', // queue entry
   'rcp', // receipt
@@ -45,10 +49,14 @@ export const ID_PREFIXES = [
   'set', // settings scope
   'stf', // staff member
   'sup', // supplier
+  'svw', // saved view
   'tpl', // treatment plan
+  'tpi', // treatment plan item
   'trt', // treatment (catalogue item)
   'usr', // user account
   'vis', // visit
+  'vpr', // visit procedure
+  'xpt', // export record
 ] as const;
 
 export type IdPrefix = (typeof ID_PREFIXES)[number];
