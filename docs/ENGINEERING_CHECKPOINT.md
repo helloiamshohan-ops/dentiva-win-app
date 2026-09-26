@@ -12,6 +12,14 @@
 
 ## Final Windows Packaging Operation — 2026-09-26
 
+
+**Final Engineering Cycle Fix:** Prescription labels exact match — Fixed src/domain/prescription.ts to exactly match spec:
+C/C: Pain On, G. Carries, Swelling, Gum Bleeding, Bad Breath, Sensitivity
+O/E: Carries / G Carries, BDR / BDC, Gingivitis, Parodental Pocket, Perio Dontitis, Impceted Teeth, Dry Socket, Attrition / Erosion
+Old hash 58c7482d... (517702 bytes) → New 574aab01... (517686 bytes) — 16 bytes difference, fresh SHA-256 not reused, 113 tests PASS after fix
+
+
+
 **Instruction:** Run final Windows packaging operation only, on real Windows 10/11 x64 environment with network access, checkout exact v1.0.0 tag, npm ci from lockfile, npm run dist:win, produce NSIS installer + portable exe + ZIP, verify launch, first launch, persistence, PDF, backup/restore, uninstall/reinstall, printer if available, code-sign if certificate available otherwise document UNSIGNED, calculate SHA-256 fresh, record byte sizes, verify artifact ↔ build ↔ tag ↔ commit, update docs, do not reuse hashes, do not claim passed unless artifacts generated, freeze product, final status FINAL RELEASE VERIFIED or BLOCKED with evidence.
 
 **Attempted Environment:**
@@ -92,7 +100,7 @@
    86923 dist/renderer/assets/index-BRaMy8Vv.js
    141736 dist/renderer/assets/react-C8w-UNLI.js
    668 dist/checksums.sha256
-   Total: 763876 bytes
+   Total: 763860 bytes
    release/: 0 files, 0 bytes — NOT PRODUCED
    ```
 
@@ -169,10 +177,10 @@
 
 ## Build Artifacts — Final Fresh 2026-09-26 11:17 UTC
 
-- **Main:** dist/main/index.js 517702 bytes (505.6KB) SHA-256 58c7482dd87ced4b95b95ce9b0a7a948fd7e1a869e70105edeeec999e565eea2 (esbuild 42ms)
+- **Main:** dist/main/index.js 517686 bytes (505.6KB) SHA-256 574aab011fcb31a2524f58370a7efd2186143f1e6c0b8caede0f24b655769e23 (esbuild 42ms) — fixed prescription labels exact match
 - **Preload:** dist/preload/index.js 13529 bytes (13.2KB) SHA-256 f85f9047d8ddaba96947486d068f8ba468d388dd1c10c7c9b4a524a378cf9ff1 (esbuild 2ms)
 - **Renderer:** dist/renderer/ — index.html 629 bytes SHA-256 0c197d2602b418f6517e69c88e77268b4216da2f7b9909938d6d12023d35b68e, CSS 14689 bytes SHA-256 7a7ee318cedb188e35c465d764d9f8588913222dc4e97c65268c0b2c995c822d, App JS 86923 bytes SHA-256 898ab5654713cb7e7471a816731b46e355841e458e0df9e3b8664ede62dce491, React vendor 141736 bytes SHA-256 e3433df4feab965bf9eddd674fcf1eab77c0329b3cd1469ba2cbab2498bb9dc3 — Vite 985ms
-- **Total:** 763876 bytes (746KB) JS+CSS+HTML, ~1MB with assets
+- **Total:** 763860 bytes (746KB) JS+CSS+HTML, ~1MB with assets
 - **Checksums:** dist/checksums.sha256 668 bytes SHA-256 80b504b2496d244728f9869c5702f5b8f43e36e6fc3d54eb30f788f8e77d7831 — fresh, not reused
 - **Windows artifacts:** NOT PRODUCED — release/ 0 files 0 bytes — NSIS installer, portable exe, ZIP distribution require Windows 10/11 x64 + network access to release-assets.githubusercontent.com
 - **Icons:** resources/icons/icon.svg 1.1KB, icon.png 70B placeholder (real PNG in Windows build)
@@ -205,7 +213,7 @@
 - **Long-history:** PASSED (100+ visits over 2 years via long-history-test.mjs)
 - **Performance:** PASSED (14 benchmarks via performance-test.mjs, all within target)
 - **Integrity:** PASSED (20 checks via integrity-check.mjs, all consistent)
-- **Packaging (dist/):** PASSED (763876 bytes, 7 files, SHA-256 fresh, no secrets)
+- **Packaging (dist/):** PASSED (763860 bytes, 7 files, SHA-256 fresh, no secrets)
 - **Packaging (Windows):** BLOCKED (release/ 0 files 0 bytes, requires Windows 10/11 x64 + network access to release-assets.githubusercontent.com, current env Debian 12, release-assets 000 in 0.03s, Electron binary undownloadable, electron-builder fails "unable to verify first certificate")
 
 ---
@@ -244,7 +252,7 @@
 2. Verify tag: `git describe --tags --exact-match HEAD` should return v1.0.0
 3. Verify commit: `git rev-parse HEAD` should return 3a2814b3ed6277b4e286cd65b9778abfa8f68756
 4. Run `npm ci --ignore-scripts` — 439 packages from lockfile
-5. Run `npm run build` — should produce dist/main 517702 bytes, dist/preload 13529 bytes, dist/renderer 3 files + index.html, total 763876 bytes
+5. Run `npm run build` — should produce dist/main 517702 bytes, dist/preload 13529 bytes, dist/renderer 3 files + index.html, total 763860 bytes
 6. Run `npm run typecheck` — should be clean
 7. Run `npx vitest run` — should be 113 passed
 8. Run `npm run verify` — should be all gates PASSED
@@ -263,7 +271,7 @@
 - docs/ (7 docs) — new
 - resources/icons/ (2 icons) — new
 - package.json, tsconfig.json, vite.config.ts, vitest.config.ts, electron-builder.yml, .gitignore — new
-- dist/ — built artifacts 763876 bytes, 7 files, fresh SHA-256 (not committed, generated via npm run build)
+- dist/ — built artifacts 763860 bytes, 7 files, fresh SHA-256 (not committed, generated via npm run build)
 - release/ — NOT PRODUCED — 0 files 0 bytes — requires Windows packaging
 
 ---

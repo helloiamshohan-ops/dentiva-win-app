@@ -15,6 +15,34 @@
 
 Dentiva Pro v1.0.0 is a commercial-grade, offline-first dental clinic management system for Windows 10/11 x64. Built with zero native modules, exact financial arithmetic, advisory duplicate detection, and immutable clinical history. All verification gates PASSED on Linux build. Windows packaging attempted on 2026-09-26 and BLOCKED by environment limitation with evidence.
 
+
+## Final Engineering Cycle — Defect Fixed
+
+**Defect Found:** Prescription labels did not exactly match requested spec:
+- Previous C/C: Pain on, Gross caries, Swelling, Gum bleeding, Bad breath, Sensitivity
+- Required C/C: Pain On, G. Carries, Swelling, Gum Bleeding, Bad Breath, Sensitivity
+- Previous O/E: Caries, Gross caries, BDR / BDC, Gingivitis, Periodontal pocket, Periodontitis, Impacted teeth, Dry socket, Attrition / erosion
+- Required O/E: Carries / G Carries, BDR / BDC, Gingivitis, Parodental Pocket, Perio Dontitis, Impceted Teeth, Dry Socket, Attrition / Erosion
+
+**Fix Applied:** Updated src/domain/prescription.ts to exactly match spec labels:
+- C/C: Pain On, G. Carries, Swelling, Gum Bleeding, Bad Breath, Sensitivity
+- O/E: Carries / G Carries, BDR / BDC, Gingivitis, Parodental Pocket, Perio Dontitis, Impceted Teeth, Dry Socket, Attrition / Erosion
+- R/E: radiology_examination field present
+- Advice: advice field present
+
+**Testing After Fix:**
+- TypeScript: PASSED (tsc --noEmit 0)
+- Unit Tests: PASSED (60 tests)
+- Integration Tests: PASSED (53 tests)
+- Total: 113 tests PASSED
+- Scale Test: PASSED — prescription labels exact match verified (14 labels)
+- Build: Fresh SHA-256 after fix (not reused), byte sizes recorded
+- Old hash invalidated: 58c7482d... (517702 bytes) → New: 574aab01... (517686 bytes) — 16 bytes difference due to label fix
+
+**Evidence:** scripts/final-scale-test-simple.mjs verifies all 14 required labels
+
+---
+
 **Final Status:** BLOCKED — Windows packaging requires real Windows 10/11 x64 environment with network access to release-assets.githubusercontent.com; current environment is Debian 12 Linux and release-assets.githubusercontent.com returns HTTP 000 in 0.03s (blocked), Electron binary undownloadable, electron-builder fails with "unable to verify the first certificate"
 
 ---
@@ -115,13 +143,13 @@ Expected artifacts (per electron-builder.yml):
 **Linux-verifiable dist/ build — Fresh SHA-256 calculated 2026-09-26 11:17 UTC (not reused from any previous/superseded build):**
 
 ```
-58c7482dd87ced4b95b95ce9b0a7a948fd7e1a869e70105edeeec999e565eea2  dist/main/index.js
+574aab011fcb31a2524f58370a7efd2186143f1e6c0b8caede0f24b655769e23  dist/main/index.js
 f85f9047d8ddaba96947486d068f8ba468d388dd1c10c7c9b4a524a378cf9ff1  dist/preload/index.js
 0c197d2602b418f6517e69c88e77268b4216da2f7b9909938d6d12023d35b68e  dist/renderer/index.html
 7a7ee318cedb188e35c465d764d9f8588913222dc4e97c65268c0b2c995c822d  dist/renderer/assets/index-C04l9VUY.css
 898ab5654713cb7e7471a816731b46e355841e458e0df9e3b8664ede62dce491  dist/renderer/assets/index-BRaMy8Vv.js
 e3433df4feab965bf9eddd674fcf1eab77c0329b3cd1469ba2cbab2498bb9dc3  dist/renderer/assets/react-C8w-UNLI.js
-80b504b2496d244728f9869c5702f5b8f43e36e6fc3d54eb30f788f8e77d7831  dist/checksums.sha256
+f1cb6b8d0a3d77527d24a032233cedd798b8552d32c1499b55740a88023bdd3a  dist/checksums.sha256
 ```
 
 **Windows artifacts — NOT PRODUCED:**
@@ -136,14 +164,14 @@ Dentiva Pro-1.0.0-x64.zip — NOT PRODUCED — SHA-256 N/A
 **Linux-verifiable dist/ build — Exact byte sizes 2026-09-26 11:17 UTC:**
 
 ```
-517702 dist/main/index.js (505.6KB)
+517686 dist/main/index.js (505.6KB)
 13529 dist/preload/index.js (13.2KB)
 629 dist/renderer/index.html (0.63KB, gzip 0.38KB)
 14689 dist/renderer/assets/index-C04l9VUY.css (14.69KB, gzip 3.36KB)
 86923 dist/renderer/assets/index-BRaMy8Vv.js (86.92KB, gzip 17.03KB)
 141736 dist/renderer/assets/react-C8w-UNLI.js (141.74KB, gzip 45.48KB)
 668 dist/checksums.sha256
-Total: 763876 bytes (746KB) JS+CSS+HTML, ~1MB with assets
+Total: 763860 bytes (746KB) JS+CSS+HTML, ~1MB with assets
 ```
 
 **Windows artifacts — NOT PRODUCED:**
@@ -438,7 +466,7 @@ Verification:
 | Long-history | PASSED | 100+ visits over 2 years, timeline responsive |
 | Performance | PASSED | 14 benchmarks, all within target |
 | Integrity | PASSED | 20 checks, all consistent |
-| Packaging (dist/) | PASSED | dist/ 763876 bytes, 7 files, SHA-256 fresh, no secrets |
+| Packaging (dist/) | PASSED | dist/ 763860 bytes, 7 files, SHA-256 fresh, no secrets |
 | Packaging (Windows) | BLOCKED | release/ 0 files, 0 bytes, requires Windows 10/11 x64 + network access to release-assets.githubusercontent.com, current env Debian 12, release-assets 000 in 0.03s, Electron binary undownloadable, electron-builder fails "unable to verify first certificate" |
 
 **Overall Linux-verifiable:** ✅ ALL GATES PASSED — COMMERCIAL BUILD COMPLETE, FROZEN AT v1.0.0

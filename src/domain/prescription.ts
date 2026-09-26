@@ -20,24 +20,23 @@ export interface ClinicalCheckOption {
 }
 
 export const CHIEF_COMPLAINT_OPTIONS: readonly ClinicalCheckOption[] = [
-  { key: 'pain_on', label: 'Pain on', abbreviation: 'Pain' },
-  { key: 'gross_caries', label: 'Gross caries', abbreviation: 'G. Caries' },
+  { key: 'pain_on', label: 'Pain On', abbreviation: 'Pain On' },
+  { key: 'g_carries', label: 'G. Carries', abbreviation: 'G. Carries' },
   { key: 'swelling', label: 'Swelling', abbreviation: 'Swelling' },
-  { key: 'gum_bleeding', label: 'Gum bleeding', abbreviation: 'Gum Bleed.' },
-  { key: 'bad_breath', label: 'Bad breath', abbreviation: 'Bad Breath' },
+  { key: 'gum_bleeding', label: 'Gum Bleeding', abbreviation: 'Gum Bleeding' },
+  { key: 'bad_breath', label: 'Bad Breath', abbreviation: 'Bad Breath' },
   { key: 'sensitivity', label: 'Sensitivity', abbreviation: 'Sensitivity' },
 ] as const;
 
 export const ON_EXAMINATION_OPTIONS: readonly ClinicalCheckOption[] = [
-  { key: 'caries', label: 'Caries', abbreviation: 'Caries' },
-  { key: 'gross_caries', label: 'Gross caries', abbreviation: 'G. Caries' },
-  { key: 'bdr_bdc', label: 'BDR / BDC', abbreviation: 'BDR/BDC' },
+  { key: 'carries_g_carries', label: 'Carries / G Carries', abbreviation: 'Carries / G Carries' },
+  { key: 'bdr_bdc', label: 'BDR / BDC', abbreviation: 'BDR / BDC' },
   { key: 'gingivitis', label: 'Gingivitis', abbreviation: 'Gingivitis' },
-  { key: 'periodontal_pocket', label: 'Periodontal pocket', abbreviation: 'Perio. Pocket' },
-  { key: 'periodontitis', label: 'Periodontitis', abbreviation: 'Periodontitis' },
-  { key: 'impacted_teeth', label: 'Impacted teeth', abbreviation: 'Impacted' },
-  { key: 'dry_socket', label: 'Dry socket', abbreviation: 'Dry Socket' },
-  { key: 'attrition_erosion', label: 'Attrition / erosion', abbreviation: 'Attrition' },
+  { key: 'parodental_pocket', label: 'Parodental Pocket', abbreviation: 'Parodental Pocket' },
+  { key: 'perio_dontitis', label: 'Perio Dontitis', abbreviation: 'Perio Dontitis' },
+  { key: 'impected_teeth', label: 'Impected Teeth', abbreviation: 'Impected Teeth' },
+  { key: 'dry_socket', label: 'Dry Socket', abbreviation: 'Dry Socket' },
+  { key: 'attrition_erosion', label: 'Attrition / Erosion', abbreviation: 'Attrition / Erosion' },
 ] as const;
 
 /**
